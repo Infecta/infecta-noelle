@@ -1,0 +1,33 @@
+{
+  "name": "infecta-noelle",
+  "version": "1.0.0",
+  "description": "A discord bot developed by Infecta named after his wife (schizo fuck lol)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/infecta/infecta-noelle.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "osu"
+  ],
+  "author": "Infecta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/infecta/infecta-noelle/issues"
+  },
+  "homepage": "https://github.com/infecta/infecta-noelle#readme",
+  "dependencies": {
+    "discord.js": "^14.12.1",
+    "dotenv": "^16.3.1",
+    "mongodb": "^5.7.0",
+    "node-fetch": "^2.6.12"
+  },
+  "devDependencies": {
+    "eslint": "^8.46.0"
+  }
+}
