@@ -10,7 +10,8 @@ module.exports = {
 			option.setName('player').setDescription('Player Name'),
 		)
 		.addStringOption((option) =>
-			option.setName('mode')
+			option
+				.setName('mode')
 				.setDescription('Game mode')
 				.addChoices(
 					{ name: 'osu!', value: 'standard' },
@@ -178,10 +179,11 @@ module.exports = {
 						enabledModifiers.push(modifier);
 					}
 				}
-
 			}
 
-			const filteredModifiers = enabledModifiers.filter((modifier) => !excludedModifiers.has(modifier));
+			const filteredModifiers = enabledModifiers.filter(
+				(modifier) => !excludedModifiers.has(modifier),
+			);
 
 			if (filteredModifiers.length === 0) {
 				return 'No Mod';
@@ -195,7 +197,9 @@ module.exports = {
 			.setAuthor({
 				name: 'Not enough scores!',
 			})
-			.setDescription('I need at least 5 scores in your account for it to work!');
+			.setDescription(
+				'I need at least 5 scores in your account for it to work!',
+			);
 
 		if (!userInput) {
 			queryDB(interaction.user.id).then((DBResponse) => {
@@ -208,7 +212,7 @@ module.exports = {
 							const scores = scoreData.scores.slice(0, 5);
 							let bestScores = '';
 
-							if ((scoreData.scores).length === 0) {
+							if (scoreData.scores.length === 0) {
 								return interaction.reply({
 									embeds: [errorEmbed],
 									ephemeral: true,
@@ -217,6 +221,7 @@ module.exports = {
 
 							for (const score of scores) {
 								const starDifficulty = score.beatmap.diff.toFixed(2);
+								const pp = score.pp.toFixed(2);
 								const accuracy = (Math.round(score.acc * 100) / 100).toFixed(2);
 								const scoreMods = getEnabledMods(score.mods);
 								const scoreFormatted = score.score.toLocaleString();
@@ -229,11 +234,13 @@ module.exports = {
 									score.beatmap.id
 								}) +${scoreMods}** [${starDifficulty}★]\n▸ ${
 									score.grade
-								} ▸ ${accuracy}%\n▸ ${scoreFormatted} ▸ x${score.max_combo}/${
-									score.beatmap.max_combo
-								} ▸ [${score.n300 + score.ngeki}/${score.n100 + score.nkatu}/${
-									score.n50
-								}/${score.nmiss}]\n▸ Score Set  <t:${scoreDateUnix}:R>\n`;
+								} ▸ **${pp}PP** ▸ ${accuracy}%\n▸ ${scoreFormatted} ▸ x${
+									score.max_combo
+								}/${score.beatmap.max_combo} ▸ [${score.n300 + score.ngeki}/${
+									score.n100 + score.nkatu
+								}/${score.n50}/${
+									score.nmiss
+								}]\n▸ Score Set  <t:${scoreDateUnix}:R>\n`;
 
 								index++;
 							}
@@ -255,7 +262,8 @@ module.exports = {
 						}
 						catch (err) {
 							interaction.reply({
-								content: 'If you\'re seeing this, something went extremely wrong in the backend lol',
+								content:
+                  'If you\'re seeing this, something went extremely wrong in the backend lol',
 								ephemeral: true,
 							});
 							console.error(err);
@@ -264,7 +272,8 @@ module.exports = {
 				}
 				catch (err) {
 					interaction.reply({
-						content: 'It seems like you haven\'t binded your osu account to your Discord yet. Do so with **/osu-bind**',
+						content:
+              'It seems like you haven\'t binded your osu account to your Discord yet. Do so with **/osu-bind**',
 						ephemeral: true,
 					});
 				}
@@ -282,7 +291,7 @@ module.exports = {
 						const scores = scoreData.scores.slice(0, 5);
 						let bestScores = '';
 
-						if ((scoreData.scores).length === 0) {
+						if (scoreData.scores.length === 0) {
 							return interaction.reply({
 								embeds: [errorEmbed],
 								ephemeral: true,
@@ -291,6 +300,7 @@ module.exports = {
 
 						for (const score of scores) {
 							const starDifficulty = score.beatmap.diff.toFixed(2);
+							const pp = score.pp.toFixed(2);
 							const accuracy = (Math.round(score.acc * 100) / 100).toFixed(2);
 							const scoreMods = getEnabledMods(score.mods);
 							const scoreFormatted = score.score.toLocaleString();
@@ -303,11 +313,13 @@ module.exports = {
 								score.beatmap.id
 							}) +${scoreMods}** [${starDifficulty}★]\n▸ ${
 								score.grade
-							} ▸ ${accuracy}%\n▸ ${scoreFormatted} ▸ x${score.max_combo}/${
-								score.beatmap.max_combo
-							} ▸ [${score.n300 + score.ngeki}/${score.n100 + score.nkatu}/${
-								score.n50
-							}/${score.nmiss}]\n▸ Score Set  <t:${scoreDateUnix}:R>\n`;
+							} ▸ **${pp}PP** ▸ ${accuracy}%\n▸ ${scoreFormatted} ▸ x${
+								score.max_combo
+							}/${score.beatmap.max_combo} ▸ [${score.n300 + score.ngeki}/${
+								score.n100 + score.nkatu
+							}/${score.n50}/${
+								score.nmiss
+							}]\n▸ Score Set  <t:${scoreDateUnix}:R>\n`;
 
 							index++;
 						}
@@ -329,7 +341,8 @@ module.exports = {
 					}
 					catch (err) {
 						interaction.reply({
-							content: 'If you\'re seeing this, something went extremely wrong in the backend lol',
+							content:
+                'If you\'re seeing this, something went extremely wrong in the backend lol',
 							ephemeral: true,
 						});
 						console.error(err);
