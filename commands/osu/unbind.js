@@ -6,9 +6,8 @@ module.exports = {
 		.setName('unbind')
 		.setDescription('Unbind your osu account to discord'),
 	async execute(interaction) {
-		const mongoURI = process.env.mongoUri;
-		const mongoClient = new MongoClient(mongoURI);
-		const mongoDB = 'test';
+		const mongoClient = new MongoClient(process.env.mongoUri);
+		const mongoDB = process.env.mongoDatabase;
 
 		// Check if UserID Exists in DB
 		async function checkDBEntriesID(userID) {

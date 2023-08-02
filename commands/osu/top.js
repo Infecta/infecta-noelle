@@ -22,6 +22,7 @@ module.exports = {
 					{ name: 'mania', value: 'mania' },
 				),
 		),
+
 	async execute(interaction) {
 		const userInput = interaction.options.getString('player', false);
 		const mode = interaction.options.getString('mode');
@@ -31,7 +32,7 @@ module.exports = {
 		// Query Database Function for looking up playerIDs by discord userIDs
 		async function queryDB(userID) {
 			const mongoClient = new MongoClient(process.env.mongoUri);
-			const db = mongoClient.db('test');
+			const db = mongoClient.db(process.env.mongoDatabase);
 			const collection = db.collection('players');
 
 			try {
