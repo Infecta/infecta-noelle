@@ -26,6 +26,44 @@ module.exports = {
 		const userInput = interaction.options.getString('player', false);
 		const mode = interaction.options.getString('mode');
 
+		let embedDialog;
+		let selectedMode;
+
+		switch (mode) {
+		case 'standard':
+			embedDialog = 'osu!standard';
+			selectedMode = 0;
+			break;
+		case 'standard-rx':
+			embedDialog = 'osu!standard RX';
+			selectedMode = 4;
+			break;
+		case 'taiko':
+			embedDialog = 'osu!taiko';
+			selectedMode = 1;
+			break;
+		case 'taiko-rx':
+			embedDialog = 'osu!taiko RX';
+			selectedMode = 5;
+			break;
+		case 'ctb':
+			embedDialog = 'osu!ctb';
+			selectedMode = 2;
+			break;
+		case 'ctb-rx':
+			embedDialog = 'osu!ctb RX';
+			selectedMode = 6;
+			break;
+		case 'mania':
+			embedDialog = 'osu!mania';
+			selectedMode = 3;
+			break;
+		default:
+			embedDialog = 'osu!standard';
+			selectedMode = 0;
+			break;
+		}
+
 		const apiEndpoint = process.env.osuEndPoint;
 
 		// Query Database Function for looking up playerIDs by discord userIDs
@@ -74,7 +112,7 @@ module.exports = {
 		// Main Player stat querying function
 		async function queryScore(playerID) {
 			const queryInfo = await fetch(
-				`${apiEndpoint}/v1/get_player_scores?id=${playerID}&mode=0&scope=recent&limit=1`,
+				`${apiEndpoint}/v1/get_player_scores?id=${playerID}&mode=${selectedMode}&scope=recent&limit=1`,
 			);
 			const queryRes = await queryInfo.json();
 			const scoreProperties = queryRes;
@@ -152,51 +190,14 @@ module.exports = {
 			return filteredModifiers.join('');
 		}
 
-		let embedDialog;
-		let selectedMode;
-
-		switch (mode) {
-		case 'standard':
-			embedDialog = 'osu!standard';
-			selectedMode = 0;
-			break;
-		case 'standard-rx':
-			embedDialog = 'osu!standard RX';
-			selectedMode = 4;
-			break;
-		case 'taiko':
-			embedDialog = 'osu!taiko';
-			selectedMode = 1;
-			break;
-		case 'taiko-rx':
-			embedDialog = 'osu!taiko RX';
-			selectedMode = 5;
-			break;
-		case 'ctb':
-			embedDialog = 'osu!ctb';
-			selectedMode = 2;
-			break;
-		case 'ctb-rx':
-			embedDialog = 'osu!ctb RX';
-			selectedMode = 6;
-			break;
-		case 'mania':
-			embedDialog = 'osu!mania';
-			selectedMode = 3;
-			break;
-		default:
-			embedDialog = 'osu!standard';
-			selectedMode = 0;
-		}
-
 		if (!userInput) {
 			queryDB(interaction.user.id).then((DBResponse) => {
 				try {
 					queryScore(DBResponse.playerID).then(async (scoreData) => {
 						try {
 							const playerInfo = scoreData.player;
-							const scoreInfo = scoreData.scores[selectedMode];
-							const beatmapData = scoreData.scores[selectedMode].beatmap;
+							const scoreInfo = scoreData.scores[0];
+							const beatmapData = scoreData.scores[0].beatmap;
 
 							const ppFormated = scoreInfo.pp.toFixed(2);
 							const accuracyFormatted = (
@@ -239,11 +240,8 @@ module.exports = {
 							});
 						}
 						catch (err) {
-							interaction.reply({
-								content:
-                  'If you\'re seeing this, something went extremely wrong in the backend lol\n (Or player has no recent scores)',
-								ephemeral: true,
-							});
+							interaction.reply({ content: 'If you\'re seeing this, something went extremely wrong in the backend lol\n (Or player has no recent scores)', ephemeral: true });
+							console.log(err);
 						}
 					});
 				}
@@ -263,8 +261,8 @@ module.exports = {
 				queryScore(id).then(async (scoreData) => {
 					try {
 						const playerInfo = scoreData.player;
-						const scoreInfo = scoreData.scores[selectedMode];
-						const beatmapData = scoreData.scores[selectedMode].beatmap;
+						const scoreInfo = scoreData.scores[0];
+						const beatmapData = scoreData.scores[0].beatmap;
 
 						const ppFormated = scoreInfo.pp.toFixed(2);
 						const accuracyFormatted = (

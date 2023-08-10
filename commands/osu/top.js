@@ -194,12 +194,8 @@ module.exports = {
 
 		const errorEmbed = new EmbedBuilder()
 			.setColor(0xc70770)
-			.setAuthor({
-				name: 'Not enough scores!',
-			})
-			.setDescription(
-				'I need at least 5 scores in your account for it to work!',
-			);
+			.setAuthor({ name: 'Not enough scores!' })
+			.setDescription('I need at least 5 scores in your account for it to work!');
 
 		if (!userInput) {
 			queryDB(interaction.user.id).then((DBResponse) => {
@@ -228,18 +224,12 @@ module.exports = {
 								const scoreDate = score.play_time;
 								const scoreDateUnix = Date.parse(scoreDate) / 1000;
 
-								bestScores += `**${index}) [${score.beatmap.title} [${
-									score.beatmap.version
-								}]](https://osu.ppy.sh/b/${
-									score.beatmap.id
-								}) +${scoreMods}** [${starDifficulty}★]\n▸ ${
-									score.grade
-								} ▸ **${pp}PP** ▸ ${accuracy}%\n▸ ${scoreFormatted} ▸ x${
-									score.max_combo
-								}/${score.beatmap.max_combo} ▸ [${score.n300 + score.ngeki}/${
-									score.n100 + score.nkatu
-								}/${score.n50}/${
-									score.nmiss
+								bestScores += `**${index}) [${score.beatmap.title} [${score.beatmap.version
+								}]](https://osu.ppy.sh/b/${score.beatmap.id
+								}) +${scoreMods}** [${starDifficulty}★]\n▸ ${score.grade
+								} ▸ **${pp}PP** ▸ ${accuracy}%\n▸ ${scoreFormatted} ▸ x${score.max_combo
+								}/${score.beatmap.max_combo} ▸ [${score.n300 + score.ngeki}/${score.n100 + score.nkatu
+								}/${score.n50}/${score.nmiss
 								}]\n▸ Score Set  <t:${scoreDateUnix}:R>\n`;
 
 								index++;
@@ -263,7 +253,7 @@ module.exports = {
 						catch (err) {
 							interaction.reply({
 								content:
-                  'If you\'re seeing this, something went extremely wrong in the backend lol',
+									'If you\'re seeing this, something went extremely wrong in the backend lol',
 								ephemeral: true,
 							});
 							console.error(err);
@@ -273,7 +263,7 @@ module.exports = {
 				catch (err) {
 					interaction.reply({
 						content:
-              'It seems like you haven\'t binded your osu account to your Discord yet. Do so with **/osu-bind**',
+							'It seems like you haven\'t binded your osu account to your Discord yet. Do so with **/osu-bind**',
 						ephemeral: true,
 					});
 				}
@@ -307,18 +297,12 @@ module.exports = {
 							const scoreDate = score.play_time;
 							const scoreDateUnix = Date.parse(scoreDate) / 1000;
 
-							bestScores += `**${index}) [${score.beatmap.title} [${
-								score.beatmap.version
-							}]](https://osu.ppy.sh/b/${
-								score.beatmap.id
-							}) +${scoreMods}** [${starDifficulty}★]\n▸ ${
-								score.grade
-							} ▸ **${pp}PP** ▸ ${accuracy}%\n▸ ${scoreFormatted} ▸ x${
-								score.max_combo
-							}/${score.beatmap.max_combo} ▸ [${score.n300 + score.ngeki}/${
-								score.n100 + score.nkatu
-							}/${score.n50}/${
-								score.nmiss
+							bestScores += `**${index}) [${score.beatmap.title} [${score.beatmap.version
+							}]](https://osu.ppy.sh/b/${score.beatmap.id
+							}) +${scoreMods}** [${starDifficulty}★]\n▸ ${score.grade
+							} ▸ **${pp}PP** ▸ ${accuracy}%\n▸ ${scoreFormatted} ▸ x${score.max_combo
+							}/${score.beatmap.max_combo} ▸ [${score.n300 + score.ngeki}/${score.n100 + score.nkatu
+							}/${score.n50}/${score.nmiss
 							}]\n▸ Score Set  <t:${scoreDateUnix}:R>\n`;
 
 							index++;
@@ -342,7 +326,7 @@ module.exports = {
 					catch (err) {
 						interaction.reply({
 							content:
-                'If you\'re seeing this, something went extremely wrong in the backend lol',
+								'If you\'re seeing this, something went extremely wrong in the backend lol',
 							ephemeral: true,
 						});
 						console.error(err);
