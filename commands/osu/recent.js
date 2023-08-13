@@ -208,7 +208,41 @@ module.exports = {
 
 							const scoreMods = getEnabledMods(scoreInfo.mods);
 
-							// console.log(scoreMods)
+							let rankingEmote;
+
+							switch (scoreInfo.grade) {
+							case 'XH':
+								rankingEmote = '<:rankXH:1140241188595703830>';
+								break;
+							case 'X':
+								rankingEmote = '<:rankX:1140241185059913830>';
+								break;
+							case 'SH':
+								rankingEmote = '<:rankSH:1140241183357014087>';
+								break;
+							case 'S':
+								rankingEmote = '<:rankS:1140241180089647114>';
+								break;
+							case 'A':
+								rankingEmote = '<:rankA:1140241164650426451>';
+								break;
+							case 'B':
+								rankingEmote = '<:rankB:1140241166571421738>';
+								break;
+							case 'C':
+								rankingEmote = '<:rankC:1140241170711187546>';
+								break;
+							case 'D':
+								rankingEmote = '<:rankD:1140241174007906304>';
+								break;
+							case 'F':
+								rankingEmote = '<:rankF:1140241177136861198>';
+								break;
+							default:
+								rankingEmote = 'NoRank';
+								break;
+							}
+
 							// Embed Here
 
 							const scoreEmbed = new EmbedBuilder()
@@ -223,7 +257,7 @@ module.exports = {
 								)
 								.setDescription(
 									`▸ ${
-										scoreInfo.grade
+										rankingEmote
 									} ▸ **${ppFormated}PP** ▸ ${accuracyFormatted}%\n▸ ${scoreFormatted} ▸ x${
 										scoreInfo.max_combo
 									}/${beatmapData.max_combo} ▸ [${
@@ -247,8 +281,7 @@ module.exports = {
 				}
 				catch (err) {
 					interaction.reply({
-						content:
-              'It seems like you haven\'t binded your osu account to your Discord yet. Do so with **/osu-bind**',
+						content: 'It seems like you haven\'t binded your osu account to your Discord yet. Do so with **/osu-bind**',
 						ephemeral: true,
 					});
 				}
@@ -273,7 +306,41 @@ module.exports = {
 
 						const scoreMods = getEnabledMods(scoreInfo.mods);
 
-						// console.log(scoreMods)
+						let rankingEmote;
+
+						switch (scoreInfo.grade) {
+						case 'XH':
+							rankingEmote = '<:rankXH:1140241188595703830>';
+							break;
+						case 'X':
+							rankingEmote = '<:rankX:1140241185059913830>';
+							break;
+						case 'SH':
+							rankingEmote = '<:rankSH:1140241183357014087>';
+							break;
+						case 'S':
+							rankingEmote = '<:rankS:1140241180089647114>';
+							break;
+						case 'A':
+							rankingEmote = '<:rankA:1140241164650426451>';
+							break;
+						case 'B':
+							rankingEmote = '<:rankB:1140241166571421738>';
+							break;
+						case 'C':
+							rankingEmote = '<:rankC:1140241170711187546>';
+							break;
+						case 'D':
+							rankingEmote = '<:rankD:1140241174007906304>';
+							break;
+						case 'F':
+							rankingEmote = '<:rankF:1140241177136861198>';
+							break;
+						default:
+							rankingEmote = 'NoRank';
+							break;
+						}
+
 						// Embed Here
 
 						const scoreEmbed = new EmbedBuilder()
@@ -286,7 +353,7 @@ module.exports = {
 							.setThumbnail(`https://b.ppy.sh/thumb/${beatmapData.set_id}l.jpg`)
 							.setDescription(
 								`▸ ${
-									scoreInfo.grade
+									rankingEmote
 								} ▸ **${ppFormated}PP** ▸ ${accuracyFormatted}%\n▸ ${scoreFormatted} ▸ x${
 									scoreInfo.max_combo
 								}/${beatmapData.max_combo} ▸ [${
@@ -305,8 +372,7 @@ module.exports = {
 					catch (err) {
 						console.log(err);
 						interaction.reply({
-							content:
-                'Something went wrong (Either API is down or you misspelled the username)\n (Or player has no recent scores)',
+							content: 'Something went wrong (Either API is down or you misspelled the username)\n (Or player has no recent scores)',
 							ephemeral: true,
 						});
 					}

@@ -125,23 +125,68 @@ module.exports = {
 						try {
 							const playerStats = player.stats[`${selectedMode}`];
 
+							const elapsedPlaytime = playerStats.playtime / 60;
+
+							const rankXH = '<:rankXH:1140241188595703830>';
+							const rankX = '<:rankX:1140241185059913830>';
+							const rankSH = '<:rankSH:1140241183357014087>';
+							const rankS = '<:rankS:1140241180089647114>';
+							const rankA = '<:rankA:1140241164650426451>';
+
+							// Unix timestamp of the user's last activity
+							const lastActivityTimestamp = player.info.latest_activity;
+
+							// Current Unix timestamp
+							const currentTimestamp = Math.floor(Date.now() / 1000);
+
+							// Calculate the time difference in seconds
+							const timeDifference = currentTimestamp - lastActivityTimestamp;
+
+							// Define time intervals in seconds
+							const minute = 60;
+							const hour = minute * 60;
+							const day = hour * 24;
+							const week = day * 7;
+							const month = day * 30;
+							const year = day * 365;
+
+							// Determine the appropriate time unit to display
+							let relativeTime;
+							if (timeDifference < minute) {
+								relativeTime = `${timeDifference} seconds ago`;
+							}
+							else if (timeDifference < hour) {
+								relativeTime = `${Math.floor(timeDifference / minute)} minutes ago`;
+							}
+							else if (timeDifference < day) {
+								relativeTime = `${Math.floor(timeDifference / hour)} hours ago`;
+							}
+							else if (timeDifference < week) {
+								relativeTime = `${Math.floor(timeDifference / day)} days ago`;
+							}
+							else if (timeDifference < month) {
+								relativeTime = `${Math.floor(timeDifference / week)} weeks ago`;
+							}
+							else if (timeDifference < year) {
+								relativeTime = `${Math.floor(timeDifference / month)} months ago`;
+							}
+							else {
+								relativeTime = `${Math.floor(timeDifference / year)} years ago`;
+							}
+
 							const embed = new EmbedBuilder()
 								.setTitle(`${embedDialog} player stats for ${player.info.name}`)
 								.setThumbnail(`https://a.infecta.xyz/${player.info.id}`)
-								.addFields(
-									{ name: 'Rank (Server-wide)', value: `#${playerStats.rank}` },
-									{
-										name: 'Accuracy',
-										value: `${(Math.round(playerStats.acc * 100) / 100).toFixed(2)}%`,
-										inline: true,
-									},
-									{ name: 'PP', value: `${(playerStats.pp).toLocaleString()}PP`, inline: true },
-									{
-										name: 'Last Seen',
-										value: `<t:${player.info.latest_activity}>`,
-									},
+								.setDescription(
+									`
+									**▸ Server-wide Rank:** #${playerStats.rank}
+									**▸ PP:** ${(playerStats.pp).toLocaleString()}PP
+									**▸ Acc:** ${(Math.round(playerStats.acc * 100) / 100).toFixed(2)}%
+									**▸ Playcount:** ${playerStats.plays.toLocaleString()} (${elapsedPlaytime.toFixed(0)} mins.)
+									**▸ Ranks:** ${rankXH} \`\`${playerStats.xh_count}\`\` ${rankX} \`\`${playerStats.x_count}\`\` ${rankSH} \`\`${playerStats.sh_count}\`\` ${rankS} \`\`${playerStats.s_count}\`\` ${rankA} \`\`${playerStats.a_count}\`\`
+									`,
 								)
-								.setFooter({ text: 'Stats fetched from Infecta\'s osu server' });
+								.setFooter({ text: `Last Seen ${relativeTime} in Infecta's osu! server` });
 
 							await interaction.reply({ embeds: [embed] });
 						}
@@ -167,25 +212,70 @@ module.exports = {
 			queryID(userInput.toLowerCase()).then((id) => {
 				queryStats(id).then(async (player) => {
 					try {
-						const playerStats = player.stats[selectedMode];
+						const playerStats = player.stats[`${selectedMode}`];
+
+						const elapsedPlaytime = playerStats.playtime / 60;
+
+						const rankXH = '<:rankXH:1140241188595703830>';
+						const rankX = '<:rankX:1140241185059913830>';
+						const rankSH = '<:rankSH:1140241183357014087>';
+						const rankS = '<:rankS:1140241180089647114>';
+						const rankA = '<:rankA:1140241164650426451>';
+
+						// Unix timestamp of the user's last activity
+						const lastActivityTimestamp = player.info.latest_activity;
+
+						// Current Unix timestamp
+						const currentTimestamp = Math.floor(Date.now() / 1000);
+
+						// Calculate the time difference in seconds
+						const timeDifference = currentTimestamp - lastActivityTimestamp;
+
+						// Define time intervals in seconds
+						const minute = 60;
+						const hour = minute * 60;
+						const day = hour * 24;
+						const week = day * 7;
+						const month = day * 30;
+						const year = day * 365;
+
+						// Determine the appropriate time unit to display
+						let relativeTime;
+						if (timeDifference < minute) {
+							relativeTime = `${timeDifference} seconds ago`;
+						}
+						else if (timeDifference < hour) {
+							relativeTime = `${Math.floor(timeDifference / minute)} minutes ago`;
+						}
+						else if (timeDifference < day) {
+							relativeTime = `${Math.floor(timeDifference / hour)} hours ago`;
+						}
+						else if (timeDifference < week) {
+							relativeTime = `${Math.floor(timeDifference / day)} days ago`;
+						}
+						else if (timeDifference < month) {
+							relativeTime = `${Math.floor(timeDifference / week)} weeks ago`;
+						}
+						else if (timeDifference < year) {
+							relativeTime = `${Math.floor(timeDifference / month)} months ago`;
+						}
+						else {
+							relativeTime = `${Math.floor(timeDifference / year)} years ago`;
+						}
 
 						const embed = new EmbedBuilder()
 							.setTitle(`${embedDialog} player stats for ${player.info.name}`)
 							.setThumbnail(`https://a.infecta.xyz/${player.info.id}`)
-							.addFields(
-								{ name: 'Rank (Server-wide)', value: `#${playerStats.rank}` },
-								{
-									name: 'Accuracy',
-									value: `${(Math.round(playerStats.acc * 100) / 100).toFixed(2)}%`,
-									inline: true,
-								},
-								{ name: 'PP', value: `${(playerStats.pp).toLocaleString()}PP`, inline: true },
-								{
-									name: 'Last Seen',
-									value: `<t:${player.info.latest_activity}>`,
-								},
+							.setDescription(
+								`
+								**▸ Server-wide Rank:** #${playerStats.rank}
+								**▸ PP:** ${(playerStats.pp).toLocaleString()}PP
+								**▸ Acc:** ${(Math.round(playerStats.acc * 100) / 100).toFixed(2)}%
+								**▸ Playcount:** ${playerStats.plays.toLocaleString()} (${elapsedPlaytime.toFixed(0)} mins.)
+								**▸ Ranks:** ${rankXH} \`\`${playerStats.xh_count}\`\` ${rankX} \`\`${playerStats.x_count}\`\` ${rankSH} \`\`${playerStats.sh_count}\`\` ${rankS} \`\`${playerStats.s_count}\`\` ${rankA} \`\`${playerStats.a_count}\`\`
+								`,
 							)
-							.setFooter({ text: 'Stats fetched from Infecta\'s osu server' });
+							.setFooter({ text: `Last Seen ${relativeTime} in Infecta's osu! server` });
 
 						await interaction.reply({ embeds: [embed] });
 					}

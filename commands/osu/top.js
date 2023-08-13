@@ -224,9 +224,44 @@ module.exports = {
 								const scoreDate = score.play_time;
 								const scoreDateUnix = Date.parse(scoreDate) / 1000;
 
+								let rankingEmote;
+
+								switch (score.grade) {
+								case 'XH':
+									rankingEmote = '<:rankXH:1140241188595703830>';
+									break;
+								case 'X':
+									rankingEmote = '<:rankX:1140241185059913830>';
+									break;
+								case 'SH':
+									rankingEmote = '<:rankSH:1140241183357014087>';
+									break;
+								case 'S':
+									rankingEmote = '<:rankS:1140241180089647114>';
+									break;
+								case 'A':
+									rankingEmote = '<:rankA:1140241164650426451>';
+									break;
+								case 'B':
+									rankingEmote = '<:rankB:1140241166571421738>';
+									break;
+								case 'C':
+									rankingEmote = '<:rankC:1140241170711187546>';
+									break;
+								case 'D':
+									rankingEmote = '<:rankD:1140241174007906304>';
+									break;
+								case 'F':
+									rankingEmote = '<:rankF:1140241177136861198>';
+									break;
+								default:
+									rankingEmote = 'NoRank';
+									break;
+								}
+
 								bestScores += `**${index}) [${score.beatmap.title} [${score.beatmap.version
 								}]](https://osu.ppy.sh/b/${score.beatmap.id
-								}) +${scoreMods}** [${starDifficulty}★]\n▸ ${score.grade
+								}) +${scoreMods}** [${starDifficulty}★]\n▸ ${rankingEmote
 								} ▸ **${pp}PP** ▸ ${accuracy}%\n▸ ${scoreFormatted} ▸ x${score.max_combo
 								}/${score.beatmap.max_combo} ▸ [${score.n300 + score.ngeki}/${score.n100 + score.nkatu
 								}/${score.n50}/${score.nmiss
@@ -297,9 +332,44 @@ module.exports = {
 							const scoreDate = score.play_time;
 							const scoreDateUnix = Date.parse(scoreDate) / 1000;
 
+							let rankingEmote;
+
+							switch (score.grade) {
+							case 'XH':
+								rankingEmote = '<:rankXH:1140241188595703830>';
+								break;
+							case 'X':
+								rankingEmote = '<:rankX:1140241185059913830>';
+								break;
+							case 'SH':
+								rankingEmote = '<:rankSH:1140241183357014087>';
+								break;
+							case 'S':
+								rankingEmote = '<:rankS:1140241180089647114>';
+								break;
+							case 'A':
+								rankingEmote = '<:rankA:1140241164650426451>';
+								break;
+							case 'B':
+								rankingEmote = '<:rankB:1140241166571421738>';
+								break;
+							case 'C':
+								rankingEmote = '<:rankC:1140241170711187546>';
+								break;
+							case 'D':
+								rankingEmote = '<:rankD:1140241174007906304>';
+								break;
+							case 'F':
+								rankingEmote = '<:rankF:1140241177136861198>';
+								break;
+							default:
+								rankingEmote = 'NoRank';
+								break;
+							}
+
 							bestScores += `**${index}) [${score.beatmap.title} [${score.beatmap.version
 							}]](https://osu.ppy.sh/b/${score.beatmap.id
-							}) +${scoreMods}** [${starDifficulty}★]\n▸ ${score.grade
+							}) +${scoreMods}** [${starDifficulty}★]\n▸ ${rankingEmote
 							} ▸ **${pp}PP** ▸ ${accuracy}%\n▸ ${scoreFormatted} ▸ x${score.max_combo
 							}/${score.beatmap.max_combo} ▸ [${score.n300 + score.ngeki}/${score.n100 + score.nkatu
 							}/${score.n50}/${score.nmiss
